@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ryan | AI Portfolio</title>
+  <style>
+    :root {
+      --bg: #0a0d14;
+      --bg2: #11182a;
+      --card: rgba(16, 22, 34, 0.76);
+      --card-border: rgba(154, 180, 220, 0.18);
+      --text: #edf4ff;
+      --muted: #a9b7cb;
+      --accent: #8ef0c9;
+      --accent2: #75b7ff;
+      --warn: #ffd27d;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+      --radius: 24px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at top left, rgba(117, 183, 255, 0.2), transparent 35%),
+        radial-gradient(circle at 80% 10%, rgba(142, 240, 201, 0.14), transparent 30%),
+        linear-gradient(180deg, var(--bg2), var(--bg));
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 100%);
+      pointer-events: none;
+      opacity: 0.7;
+    }
+    .wrap {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    header {
+      padding: 28px 0 16px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(142,240,201,0.95), rgba(117,183,255,0.95));
+      box-shadow: 0 14px 35px rgba(117,183,255,0.22);
+    }
+    .brand h1 {
+      margin: 0;
+      font-size: 17px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .brand p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    nav {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    nav a, .btn {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: 180ms ease;
+    }
+    nav a:hover, .btn:hover {
+      border-color: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      transform: translateY(-1px);
+    }
+    .hero {
+      padding: 44px 0 26px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+    .hero-main {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      inset: auto -120px -120px auto;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(142,240,201,0.22), transparent 68%);
+      pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(142,240,201,0.08);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 18px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 18px rgba(142,240,201,0.6);
+    }
+    h2 {
+      margin: 0;
+      font-size: clamp(42px, 8vw, 76px);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+    .subtitle {
+      margin: 18px 0 0;
+      max-width: 60ch;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+    .cta-row {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(117,183,255,0.95), rgba(142,240,201,0.95));
+      color: #08111a;
+      font-weight: 800;
+    }
+    .btn.secondary {
+      background: rgba(255,255,255,0.03);
+      border-color: rgba(255,255,255,0.08);
+    }
+    .hero-side {
+      padding: 24px;
+      display: grid;
+      gap: 14px;
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .mini {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .mini .label {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    .mini .value {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .mini .detail {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .quote {
+      padding: 18px;
+      border-left: 3px solid var(--accent2);
+      color: #d7e5ff;
+      line-height: 1.6;
+      background: rgba(117,183,255,0.06);
+      border-radius: 16px;
+    }
+    section {
+      padding: 10px 0 26px;
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 14px;
+    }
+    .section-head h3 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+    }
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 66ch;
+      line-height: 1.55;
+    }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .card {
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
+    }
+    .card h4 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+    .card p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag {
+      font-size: 12px;
+      color: #dfe9ff;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .timeline .card {
+      min-height: 100%;
+    }
+    .list {
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .item {
+      display: flex;
+      gap: 12px;
+      align-items: start;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .bullet {
+      width: 11px;
+      height: 11px;
+      margin-top: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--warn), var(--accent));
+      flex: 0 0 auto;
+      box-shadow: 0 0 16px rgba(255, 210, 125, 0.35);
+    }
+    .contact {
+      padding: 26px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .contact h3 {
+      margin: 0 0 6px;
+      font-size: 24px;
+    }
+    .contact p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    footer {
+      padding: 20px 0 34px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+    @media (max-width: 980px) {
+      .hero, .projects, .timeline {
+        grid-template-columns: 1fr;
+      }
+      header, .section-head {
+        flex-direction: column;
+        align-items: start;
+      }
+      nav { justify-content: flex-start; }
+    }
+    @media (max-width: 640px) {
+      .wrap { width: min(100% - 20px, 1160px); }
+      .hero-main, .hero-side, .card, .contact { padding: 20px; }
+      h2 { font-size: clamp(36px, 14vw, 58px); }
+      .subtitle { font-size: 16px; }
+      .stat-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="mark"></div>
+        <div>
+          <h1>Ryan</h1>
+          <p>Student building toward AI companies</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="panel hero-main">
+          <div class="eyebrow">AI-focused student portfolio</div>
+          <h2>Ryan is a student building work that recruiters can actually inspect.</h2>
+          <p class="subtitle">
+            I’m interested in joining leading AI companies and turning coursework, projects, and experiments into a public portfolio that shows initiative, technical curiosity, and proof of execution.
+          </p>
+          <div class="cta-row">
+            <a class="btn primary" href="#projects">See my work</a>
+            <a class="btn secondary" href="#contact">Contact me</a>
+          </div>
+        </div>
+
+        <aside class="panel hero-side">
+          <div class="stat-grid">
+            <div class="mini">
+              <div class="label">Focus</div>
+              <div class="value">AI</div>
+              <div class="detail">Building toward roles at top companies.</div>
+            </div>
+            <div class="mini">
+              <div class="label">Goal</div>
+              <div class="value">Recruiters</div>
+              <div class="detail">Make it easy to judge my work fast.</div>
+            </div>
+            <div class="mini">
+              <div class="label">Identity</div>
+              <div class="value">Student</div>
+              <div class="detail">Learning, shipping, and iterating publicly.</div>
+            </div>
+            <div class="mini">
+              <div class="label">Style</div>
+              <div class="value">Clear</div>
+              <div class="detail">Simple, credible, and easy to scan.</div>
+            </div>
+          </div>
+          <div class="quote">
+            “I want recruiters to see not just what I say I can do, but the actual projects, thinking, and momentum behind it.”
+          </div>
+        </aside>
+      </section>
+
+      <section id="about">
+        <div class="section-head">
+          <div>
+            <h3>About Ryan</h3>
+            <p>A concise personal story works best for recruiting. This version positions you as a student with a clear interest in AI and an active portfolio mindset.</p>
+          </div>
+        </div>
+        <div class="timeline">
+          <article class="card">
+            <h4>What I’m about</h4>
+            <p>
+              I’m a student who wants to grow into roles at major AI companies by building real projects, learning quickly, and showing my work in public.
+            </p>
+            <div class="list">
+              <div class="item"><span class="bullet"></span><span>Interested in AI products, model tooling, and the systems behind modern intelligent apps.</span></div>
+              <div class="item"><span class="bullet"></span><span>Focused on creating a portfolio that helps recruiters understand my strengths at a glance.</span></div>
+              <div class="item"><span class="bullet"></span><span>Looking for internships, research opportunities, and entry points into big tech AI teams.</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <h4>What this site should communicate</h4>
+            <p>
+              The strongest recruiter-facing site is focused, specific, and easy to navigate. It should quickly answer: who you are, what you’re learning, what you’ve built, and how to reach you.
+            </p>
+            <div class="list">
+              <div class="item"><span class="bullet"></span><span>Professional enough for hiring managers.</span></div>
+              <div class="item"><span class="bullet"></span><span>Personal enough to feel memorable.</span></div>
+              <div class="item"><span class="bullet"></span><span>Concrete enough to support interview conversations.</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="section-head">
+          <div>
+            <h3>Projects</h3>
+            <p>These cards are ready for you to replace with your real projects, GitHub links, demos, or case studies. Right now they’re written to help recruiters understand the kind of work you want to showcase.</p>
+          </div>
+        </div>
+        <div class="projects">
+          <article class="card">
+            <h4>AI Experiment Lab</h4>
+            <p>A small research-and-build space for testing prompts, workflows, and prototype ideas. Great for showing initiative and rapid iteration.</p>
+            <div class="tags">
+              <span class="tag">LLMs</span>
+              <span class="tag">Prompting</span>
+              <span class="tag">Prototyping</span>
+            </div>
+          </article>
+          <article class="card">
+            <h4>Portfolio Projects</h4>
+            <p>A collection of visible, recruiter-friendly work that demonstrates coding ability, product thinking, and taste in design.</p>
+            <div class="tags">
+              <span class="tag">Frontend</span>
+              <span class="tag">UI/UX</span>
+              <span class="tag">GitHub</span>
+            </div>
+          </article>
+          <article class="card">
+            <h4>AI Career Tracker</h4>
+            <p>Track target companies, internships, deadlines, and outreach so your application process looks organized and intentional.</p>
+            <div class="tags">
+              <span class="tag">Planning</span>
+              <span class="tag">Applications</span>
+              <span class="tag">Organization</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="experience">
+        <div class="section-head">
+          <div>
+            <h3>Experience Snapshot</h3>
+            <p>This section helps recruiters quickly map your learning path. You can swap in clubs, internships, class projects, awards, or volunteer work.</p>
+          </div>
+        </div>
+        <div class="timeline">
+          <article class="card">
+            <h4>Current priorities</h4>
+            <div class="list">
+              <div class="item"><span class="bullet"></span><span>Studying core CS concepts and practical AI development.</span></div>
+              <div class="item"><span class="bullet"></span><span>Building public projects that show process, not just final results.</span></div>
+              <div class="item"><span class="bullet"></span><span>Learning how to present work clearly to recruiters and hiring managers.</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <h4>Recruiter-friendly signals</h4>
+            <div class="list">
+              <div class="item"><span class="bullet"></span><span>Clear interest in AI companies and emerging product spaces.</span></div>
+              <div class="item"><span class="bullet"></span><span>Evidence of discipline through visible projects and updates.</span></div>
+              <div class="item"><span class="bullet"></span><span>A professional landing page that’s easy to share in applications.</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="panel contact">
+          <div>
+            <h3>Let recruiters find you fast.</h3>
+            <p>Add your email, GitHub, LinkedIn, and resume here once you’re ready to publish. I kept this clean so your real links can sit front and center.</p>
+          </div>
+          <div class="cta-row" style="margin-top:0">
+            <a class="btn primary" href="mailto:ryan@example.com">Email Ryan</a>
+            <a class="btn secondary" href="#">GitHub</a>
+            <a class="btn secondary" href="#">LinkedIn</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Built for Ryan, a student interested in AI companies and open to internships, research, and early-career opportunities.
+    </footer>
+  </div>
+</body>
+</html>
